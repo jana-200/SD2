@@ -1,25 +1,22 @@
 import java.util.*;
 
 public class GestionImpression {
-	private LinkedHashSet<String> users = new LinkedHashSet<>();
-	private HashMap<String,ArrayDeque<Impression>> impressions=new HashMap<>();
+	private LinkedList<String> users = new LinkedList<String>();
+	private HashMap<String,ArrayDeque<Impression>> impressions=new HashMap<String,ArrayDeque<Impression>>();
 
 
 	public void ajouterImpression(Impression impr){
 		impressions.putIfAbsent(impr.getIdUtilisateur(), new ArrayDeque<>());
 
 		impressions.get(impr.getIdUtilisateur()).add(impr);
-		users.remove(impr.getIdUtilisateur());
+ 		users.removeFirstOccurrence(impr.getIdUtilisateur());
 		users.add(impr.getIdUtilisateur());
 	}
 
 	public Impression selectionnerImpression(){
 		if(users.isEmpty()) return null;
 
-		// Récupère et supprime le premier utilisateur en file
-		Iterator<String> it = users.iterator();
-		String user = it.next();
-		it.remove();
+		String user=users.removeFirst();
 
 		ArrayDeque<Impression> file=impressions.get(user);
 		if(file.isEmpty()) return null;

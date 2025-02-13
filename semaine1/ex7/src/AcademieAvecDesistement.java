@@ -1,12 +1,12 @@
 import java.util.*;
 
 public class AcademieAvecDesistement {
-	private HashMap<String, LinkedHashSet<String>> file;
+	private HashMap<String, LinkedList<String>> file;
 
 	public AcademieAvecDesistement(ArrayList<String> v){
 		file = new HashMap<>();
 		for(String s : v){
-			file.put(s, new LinkedHashSet<>());
+			file.put(s, new LinkedList<>());
 		}
 	}
 	
@@ -20,12 +20,10 @@ public class AcademieAvecDesistement {
 	
 	//supprime uniquement l'�l�ve de la file d'attente
 	public String attribuerPlace(String instrument){
-		LinkedHashSet<String> fileInstru = file.get(instrument);
+		LinkedList<String> fileInstru = file.get(instrument);
 		if(fileInstru.isEmpty()) return null;
 
-		Iterator<String> it= fileInstru.iterator();
-		String str=it.next();
-		it.remove();
+		String str = fileInstru.removeFirst();
 		return str;
 	} 
 	
