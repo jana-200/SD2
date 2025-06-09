@@ -1,5 +1,5 @@
 
-public class PlageHoraire {
+public class PlageHoraire implements Comparable<PlageHoraire> {
 	private final int heure;
 	private final int minute;
 	public PlageHoraire(int heure, int minute) {
@@ -37,5 +37,9 @@ public class PlageHoraire {
 		if (minute== 0) return heure+"h";
 		return heure+"h"+minute;
 	}
-	
+
+	@Override
+	public int compareTo(PlageHoraire o) {
+		return Integer.compare(heure, o.heure);
+	}
 }

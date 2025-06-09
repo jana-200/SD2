@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class Tree implements Iterable<Tree> {
 
@@ -56,18 +54,35 @@ public class Tree implements Iterable<Tree> {
 		return children.length == 0;
 	}
 
-	// Cette méthode renvoie true si la valeur de chaque nœud est strictement supérieure à la valeur de tous ses enfants, 
+	// Cette m?thode renvoie true si la valeur de chaque n?ud est strictement sup?rieure ? la valeur de tous ses enfants, 
 	// sinon elle renvoie false.
 	public boolean parentPlusGrandQueSesEnfants() {
-		//TO DO
-		return false;
+		boolean res=true;
+		for(Tree child : children) {
+			if(child.getValue()>=value ) res=false;
+			res= res && child.parentPlusGrandQueSesEnfants();
+		}
+		return res;
 	}
 	
-	// Cette méthode renvoie une HashMap contenant le nombre de nœuds pour chaque niveau de l'arbre.
-	// Le niveau de la racine est considéré comme le niveau 0.
+	// Cette m?thode renvoie une HashMap contenant le nombre de n?uds pour chaque niveau de l'arbre.
+	// Le niveau de la racine est consid?r? comme le niveau 0.
 	public HashMap<Integer, Integer> nbNoeudsParNiveau() {
-		//TO DO
-		return null;
+		HashMap<Integer, Integer> res=new HashMap<>();
+		List<Tree> queue=new LinkedList<>();
+		queue.add(this);
+		nbNoeudsParNiveauBis(res, 0,queue);
+		return res;
+	}
+	private void nbNoeudsParNiveauBis(HashMap<Integer, Integer> map, int niveau, List<Tree> queue) {
+		if (queue.isEmpty()) return;
+		map.put(niveau,queue.size());
+		List<Tree> children=new LinkedList<>();
+		for(Tree t : queue) {
+            children.addAll(Arrays.asList(t.children));
+		}
+
+		nbNoeudsParNiveauBis(map,niveau+1,children);
 	}
 
 

@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Graph {
 	private Map<Integer, Ville> mapVilleEntier = new HashMap<>();
@@ -51,13 +48,31 @@ public class Graph {
 		routes.add(road);
 	}
 
-	// A compléter
+	// A compl?ter
 	// affiche a la sortie standard les noms des differentes villes
 	// qu il est possible d'atteindre dans l ordre d un parcours en largeur (BFS)
 	// depuis la ville de depart.
 	public void bfs(String nomSource) {
+		Queue<Ville> queue = new LinkedList<>();
+		HashSet<Ville> visited = new HashSet<>();
 		Ville source = mapVilleNom.get(nomSource);
-		// TO COMPLETE
+		queue.add(source);
+		visited.add(source);
+		while (!queue.isEmpty()) {
+			Ville current = queue.remove();
+			System.out.println(current.getNom());
+
+			for(Route route:routes){
+				if(route.getSource().equals(current)){
+					if(!visited.contains(route.getDestination())){
+						visited.add(route.getDestination());
+						queue.add(route.getDestination());
+
+					}
+				}
+			}
+		}
+
 	}
 
 }
