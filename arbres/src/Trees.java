@@ -1,7 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Trees {
 
@@ -95,24 +92,23 @@ public class Trees {
 	// 1.3)
 	public static int sum(Tree t) {
 		if(t==null) return 0;
-		int somme=t.getValue();
+		int sum=t.getValue();
 		for(Tree child: t.getChildren()){
-			somme+=sum(child);
+			sum+=sum(child);
 		}
-		return somme;
+		return sum;
 	}
 
 	// 1.4)
 	public static boolean equals(Tree t1, Tree t2) {
-		if (t1 == null || t2 == null) return t1 == t2;
-		if (t1.getValue() != t2.getValue()) return false;
+		if(t1==null || t2==null) return t1 == t2;
+		if(t1.getValue() != t2.getValue()) return false;
 		Tree[] c1 = t1.getChildren();
 		Tree[] c2 = t2.getChildren();
-		if (c1.length != c2.length) return false;
-		for (int i = 0; i < c1.length; i++) {
-			if (!equals(c1[i], c2[i])) return false;
+		if(c1.length!=c2.length) return false;
+		for(int i=0; i<c1.length; i++){
+			if(!equals(c1[i], c2[i])) return false;
 		}
-
 		return true;
 	}
 
@@ -149,14 +145,14 @@ public class Trees {
 	// 1.8)
 	public static void bfsPrint(Tree t) {
 		if (t == null) return;
-		Queue<Tree> q = new LinkedList<Tree>();
+		Deque<Tree> q = new LinkedList<Tree>();
 		q.add(t);
 		bfsPrintBis(q);
 	}
 
 	private static void bfsPrintBis(Queue<Tree> q) {
 		if (q.isEmpty()) return;
-		Tree current = q.poll();
+		Tree current=q.poll();
 		System.out.println(current.getValue());
 		for (Tree child : current.getChildren()) {
 			q.add(child);
@@ -193,13 +189,7 @@ public class Trees {
 
 	// 2.3
 	static void printPathV3(Tree t, int v) {
-		if (t.getValue() == v) System.out.println(t.getValue());
-
-		for (Tree child : t.getChildren()) {
-			System.out.println(t.getValue());
-			printPathV3(child, v);
-		}
-
+		//todo
 	}
 
 	// *******************************************************

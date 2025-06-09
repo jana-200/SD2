@@ -11,7 +11,7 @@ public class Tree implements Iterable<Tree> {
 
 	// *******************************************************
 	// CONSTRUCTEURS
-	// *******************************************************
+	// **********************************z*********************
 	public Tree(int v, Tree[] chd) {
 		value = v;
 		children = chd;

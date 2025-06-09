@@ -36,7 +36,7 @@ public class Main {
     System.out.println(Trees.nbrNode(t2));
 
     System.out.println("test trouver le min");
-    System.out.println(Trees.min(t2));
+    System.out.println(Trees.min(t4));
 
     System.out.println("test trouver la somme");
     System.out.println(Trees.sum(t2));
@@ -66,7 +66,7 @@ public class Main {
     Trees.printPathV2(l7);
 
     System.out.println("test print Path v3");
-    Trees.printPathV3(t6, 7);
+    Trees.printPathV3(t3, 5);
 
     System.out.println("test toArray :");
     int[][] mat = Trees.toArray(t4);
