@@ -62,10 +62,23 @@ public class Tree implements Iterable<Tree> {
 	}
 	
 
-	// renvoie une map dont les clés sont les entiers présents dans l'arbre 
+	// renvoie une map dont les clï¿½s sont les entiers prï¿½sents dans l'arbre 
 	// et les valeurs sont le nombre de fois qu'apparaissent ces entiers dans l'arbre
 	public HashMap<Integer,Integer> toMap(){
-		return null;
+		HashMap<Integer,Integer> map = new HashMap<>();
+		map.put(this.value,1);
+		toMapBis(map);
+		return map;
+	}
+	private void toMapBis(HashMap<Integer,Integer> map){
+		if(children.length == 0){return;}
+		for(Tree child : children){
+			if(map.containsKey(child.value)){
+				map.put(child.value,map.get(child.value)+1);
+			}else map.put(child.value,1);
+
+			child.toMapBis(map);
+		}
 	}
 
 	public static void main(String[] args) {

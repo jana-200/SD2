@@ -1,6 +1,6 @@
-// La classe peut être modifiée si nécéssaire
+// La classe peut ï¿½tre modifiï¿½e si nï¿½cï¿½ssaire
 
-public class Etudiant {
+public class Etudiant implements Comparable<Etudiant> {
 	private final int numeroRegistreNational;
 	private final String nom;
 	private final String prenom;
@@ -55,7 +55,12 @@ public class Etudiant {
 			return false;
 		return true;
 	}
-	
-	
 
+
+	@Override
+	public int compareTo(Etudiant o) {
+		int cmp= Integer.compare(o.getNbEctsValides(),this.getNbEctsValides());
+		if(cmp!=0) return cmp;
+		return Integer.compare(this.getNumeroRegistreNational(), o.getNumeroRegistreNational());
+	}
 }

@@ -1,5 +1,5 @@
 
-public class Athlete{
+public class Athlete implements Comparable<Athlete> {
 	private final String nom;
 	private int nbSautEffectue = 0;
 	private int[] sauts = new int[3];
@@ -45,5 +45,21 @@ public class Athlete{
 			return false;
 		return true;
 	}
+	public int getMeilleurSaut() {
+		int max = 0;
+		for (int i = 0; i < nbSautEffectue; i++) {
+			if (sauts[i] >= max) {
+				max = sauts[i];
+			}
+		}
+		return max;
+	}
 
+	@Override
+	public int compareTo(Athlete o) {
+
+		int cmp = Integer.compare(o.getMeilleurSaut(), this.getMeilleurSaut());
+		if (cmp != 0) return cmp;
+		return this.nom.compareTo(o.nom);
+	}
 }

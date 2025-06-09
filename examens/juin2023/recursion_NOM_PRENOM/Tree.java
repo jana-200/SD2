@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class Tree implements Iterable<Tree> {
 
@@ -55,10 +57,15 @@ public class Tree implements Iterable<Tree> {
 		return children.length == 0;
 	}
 
-	// Cette méthode renvoie vrai si tous les noeuds ont au maximum deux fils, faux sinon.
+	// Cette mï¿½thode renvoie vrai si tous les noeuds ont au maximum deux fils, faux sinon.
 	public boolean estArbreBinaire() {
-		return false;
-	}
+		boolean ret = false;
+		if(children.length <= 2) ret=true;
+		for(Tree child : children) {
+			if(!child.estArbreBinaire()) return false;
+		}
+		return ret;
+    }
 	
 
 	public static void main(String[] args) {

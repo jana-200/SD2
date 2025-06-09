@@ -1,40 +1,55 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 public class ProgrammesEtudiants {
-	
-	// ajouter/modifier attributs ici
+
 	private Set<Etudiant> etudiants = new HashSet<Etudiant>();
+	private HashMap<Etudiant, List<UniteEnseignement>> valides;
+	private PriorityQueue<Etudiant> queue;
 	
 	public ProgrammesEtudiants(Etudiant... etudiants) {
 		for (Etudiant etudiant : etudiants) {
 			this.etudiants.add(etudiant);
 		}
-		//initialise ce qu'il faut initialiser si necessaire
+		valides = new HashMap<>();
+		queue=new PriorityQueue<>();
 
 	}
 
 	// A COMPLETER	
-	// Enregistre la validation de l'unité d'enseignement par l'étudiant et met à
-	// jour le nombre d'ects validé par l'étudiant.
-	// Si l'unité d'enseignement a déjà été validée par l'étudiant, la méthode 
-	// lance une RuntimeException avec le message 'ue déjà validée'
+	// Enregistre la validation de l'unitï¿½ d'enseignement par l'ï¿½tudiant et met ï¿½
+	// jour le nombre d'ects validï¿½ par l'ï¿½tudiant.
+	// Si l'unitï¿½ d'enseignement a dï¿½jï¿½ ï¿½tï¿½ validï¿½e par l'ï¿½tudiant, la mï¿½thode 
+	// lance une RuntimeException avec le message 'ue dï¿½jï¿½ validï¿½e'
 	public void valider(Etudiant e, UniteEnseignement ue) {
+		if(valides.containsKey(e)) {
+			if(valides.get(e).contains(ue)) throw new RuntimeException("ue dÃ©jÃ  validÃ©e");
+			else valides.get(e).add(ue);
+		}
+		else{
+			List<UniteEnseignement> ues = new ArrayList<>();
+			ues.add(ue);
+			valides.put(e, ues);
+		}
+		e.setNbEctsValides(e.getNbEctsValides()+ue.getNbEcts());
 
 	}
 	
 	// A COMPLETER
-	// affiche la liste de tous les étudiants (prénom, nom et nombre d'ects validés)
-	// triés par le nombre d'ects validés
+	// affiche la liste de tous les ï¿½tudiants (prï¿½nom, nom et nombre d'ects validï¿½s)
+	// triï¿½s par le nombre d'ects validï¿½s
 	// Voici un exemple de sortie attendue:
 	// Alain Delcourt 10 ects
 	// Pol Durant 8 ects
 	// Jean Michel 0 ects
-	// Si deux étudiants ont le meme nombre d'ects validés, on affiche 
-	// les deux étudiants dans n'importe quel sens.
+	// Si deux ï¿½tudiants ont le meme nombre d'ects validï¿½s, on affiche 
+	// les deux ï¿½tudiants dans n'importe quel sens.
 	public void afficherEtudiantsTriesParEcts() {
-
+        queue.addAll(etudiants);
+		while(!queue.isEmpty()) {
+			Etudiant etudiant = queue.poll();
+			System.out.println(etudiant.getNom()+" "+ etudiant.getPrenom()+" "+etudiant.getNbEctsValides());
+		}
 	}
 	
 	public static void main(String[] args) throws InterruptedException {

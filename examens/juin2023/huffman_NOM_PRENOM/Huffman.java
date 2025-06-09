@@ -29,9 +29,9 @@ public class Huffman {
 		}
 	}
 	
-	// renvoie une map qui a comme clé les lettres de la chaine de 
-	// caractère donnée en paramètre et comme valeur la fréquence de 
-	// cette lettre dans cette chaine de caractère
+	// renvoie une map qui a comme clï¿½ les lettres de la chaine de 
+	// caractï¿½re donnï¿½e en paramï¿½tre et comme valeur la frï¿½quence de 
+	// cette lettre dans cette chaine de caractï¿½re
 	public static Map<Character, Integer> computeFreq(String s) {
 		char[] input = s.toCharArray();
 		Map<Character, Integer> freq = new HashMap<Character, Integer>();
@@ -45,7 +45,7 @@ public class Huffman {
 		return freq;
 	}	
 	
-	// renvoie l'arbre de Huffman obtenu grâce à la map des fréquences des lettres 
+	// renvoie l'arbre de Huffman obtenu grï¿½ce ï¿½ la map des frï¿½quences des lettres 
 	public static Node buildTree(Map<Character, Integer> freq) {
 		PriorityQueue<Node> p = new PriorityQueue<Node>();
 		Set<Character> characters = freq.keySet();
@@ -61,14 +61,24 @@ public class Huffman {
 		return p.poll();
 	}
 	
-	// renvoie une map qui associe chaque lettre à son code. Ce code est obtenu
-	// en parcourant l'arbre de Huffman donné en paramètre
+	// renvoie une map qui associe chaque lettre ï¿½ son code. Ce code est obtenu
+	// en parcourant l'arbre de Huffman donnï¿½ en paramï¿½tre
 	public static Map<Character, String> buildCode(Node root) {
-		//TODO
-		return null;
+		Map<Character, String> m = new HashMap<Character, String>();
+		buildCodeBis(m, root, "");
+		return m;
+	}
+
+	public static void buildCodeBis(Map<Character, String> m, Node x, String s) {
+		if (x.isLeaf()) {
+			m.put(x.ch, s);
+			return;
+		}
+		buildCodeBis(m, x.left, s + '0');
+		buildCodeBis(m, x.right, s + '1');
 	}
 	
-	// encode la chaine de caractère prise en paramètre en une chaine de 
+	// encode la chaine de caractï¿½re prise en paramï¿½tre en une chaine de 
 	// bit 0 et 1 en utilisant la map des codes codeMap
 	public static String compress(String s, Map<Character, String> codeMap) {
 		char[] input = s.toCharArray();
@@ -81,8 +91,8 @@ public class Huffman {
 		return toReturn.toString();
 	}
 	
-	// Cette méthode décode une chaine de 0 et de 1 codé à l'aide de l'algorithme de Huffman
-	// En paramètre, en plus de la chaine à décoder, est spécifié la racine de l'arbre de 
+	// Cette mï¿½thode dï¿½code une chaine de 0 et de 1 codï¿½ ï¿½ l'aide de l'algorithme de Huffman
+	// En paramï¿½tre, en plus de la chaine ï¿½ dï¿½coder, est spï¿½cifiï¿½ la racine de l'arbre de 
 	// Huffman 
 	public static String expand(Node root, String t) {
 		StringBuffer s = new StringBuffer("");

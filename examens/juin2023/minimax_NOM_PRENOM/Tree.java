@@ -1,10 +1,10 @@
-// Cette classe représente l'arbre du jeu.
+// Cette classe reprï¿½sente l'arbre du jeu.
 public class Tree {
 
-	// L'état du jeu correspondant à un noeud de l'arbre.
+	// L'ï¿½tat du jeu correspondant ï¿½ un noeud de l'arbre.
 	private State state;
 
-	// La valeur Minimax dans cet état.
+	// La valeur Minimax dans cet ï¿½tat.
 	private Triplet minimaxValue;
 
 	// null si le noeud courant est une feuille, le fils de gauche sinon.
@@ -13,8 +13,8 @@ public class Tree {
 	// null si le noeud courant est une feuille, le fils de droite sinon.
 	private Tree rightChild;
 
-	// Ce constructeur construit l'arbre du jeu à partir de l'état state.
-	// Notez que les valeurs Minimax seront calculée dans la méthode
+	// Ce constructeur construit l'arbre du jeu ï¿½ partir de l'ï¿½tat state.
+	// Notez que les valeurs Minimax seront calculï¿½e dans la mï¿½thode
 	// computeMinimaxValues
 	// et non dans ce constructeur.
 	public Tree(State state) {
@@ -46,11 +46,31 @@ public class Tree {
 	}
 
 	// Calcule les valeurs Minimax de tout l'arbre.
-	// En pratique, cette méthode calcule pour chaque noeud de l'arbre un nouveau
-	// Triplet représentant les valeurs Minimax de chaque noeud.
+	// En pratique, cette mï¿½thode calcule pour chaque noeud de l'arbre un nouveau
+	// Triplet reprï¿½sentant les valeurs Minimax de chaque noeud.
 	public void computeMinimaxValues() {
-		//TODO
+		// Cas de base : feuille
+		if (isLeaf()) {
+			this.minimaxValue = new Triplet(true, state.getBluePoints(), state.getOrangePoints());
+			return;
+		}
+
+		// Appels rÃ©cursifs sur les enfants
+		leftChild.computeMinimaxValues();
+		rightChild.computeMinimaxValues();
+
+		// RÃ©cupÃ©ration des valeurs minimax des enfants
+		Triplet leftVal = leftChild.getMinimaxValue();
+		Triplet rightVal = rightChild.getMinimaxValue();
+
+		// DÃ©termination de la valeur minimax du nÅ“ud courant
+		if (state.isBlueToPlay()) {
+			this.minimaxValue = minOrange(leftVal, rightVal); // le bleu joue â†’ minimise l'orange
+		} else {
+			this.minimaxValue = minBlue(leftVal, rightVal);   // l'orange joue â†’ minimise le bleu
+		}
 	}
+
 
 	// Renvoie true si le noeud est une feuille, false sinon.
 	public boolean isLeaf() {
@@ -62,7 +82,7 @@ public class Tree {
 		return minimaxValue;
 	}
 
-	// Getter de l'état courant
+	// Getter de l'ï¿½tat courant
 	public State getState() {
 		return state;
 	}

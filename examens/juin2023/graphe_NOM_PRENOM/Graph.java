@@ -61,16 +61,23 @@ public class Graph {
 		return station;
 	}
 	
-	// renvoie l'ensemble des tronçons entrants de la station 
-	// càd les tronçons dont l'arrivee est la station en paramètre
+	// renvoie l'ensemble des tronï¿½ons entrants de la station 
+	// cï¿½d les tronï¿½ons dont l'arrivee est la station en paramï¿½tre
 	public Set<Troncon> tronconsEntrants(Station s){
-		//TODO
-		return null;
+		Set<Troncon> troncons= new HashSet<>();
+		for(Map.Entry<Station, Set<Troncon>> entry : mapStationTroncons.entrySet()) {
+			for(Troncon t : entry.getValue()) {
+				if(t.getArrivee().equals(s)) {
+					troncons.add(t);
+				}
+			}
+		}
+		return troncons;
 	}
 
-	// affiche le chemin le plus court (en terme de nombre de troncon) entre la station de départ
-	// et la station d'arrivée
-	// Pour afficher les troncons, on utilise simplement la méthode toString() de Troncon
+	// affiche le chemin le plus court (en terme de nombre de troncon) entre la station de dï¿½part
+	// et la station d'arrivï¿½e
+	// Pour afficher les troncons, on utilise simplement la mï¿½thode toString() de Troncon
 	public void calculerCheminMinimisantNombreTroncons(String depart, String arrivee) {
 		// A ADAPTER
 		Set<Station> visites = new HashSet<>();
@@ -81,7 +88,8 @@ public class Graph {
 		visites.add(stationDepart);
 		while (!file.isEmpty()) {
 			Station current = file.remove();
-			System.out.print(current.getNom()+" ");
+			System.out.println();
+			//System.out.print(current.getNom()+" ");
 			for (Troncon t :  mapStationTroncons.get(current)) {
 				if (!visites.contains(t.getArrivee())) {
 					file.add(t.getArrivee());
